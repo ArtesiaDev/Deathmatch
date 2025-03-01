@@ -10,6 +10,7 @@ namespace _Project.Scripts.Installers.SceneContext
     {
         [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private SettingsView _settingsView;
+        [SerializeField] private GamePanelView _gamePanelView;
 
         public override void InstallBindings()
         {
@@ -20,6 +21,11 @@ namespace _Project.Scripts.Installers.SceneContext
             Container.Bind<SettingsView>().FromInstance(_settingsView).AsSingle();
             
             Container.Bind<SettingsModel>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<GamePanelPresenter>().AsSingle();
+            Container.Bind<GamePanelView>().FromInstance(_gamePanelView).AsSingle();
+            
+            Container.Bind<GamePanelModel>().AsSingle();
         }
     }
 }

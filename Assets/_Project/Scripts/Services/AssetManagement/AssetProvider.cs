@@ -11,8 +11,8 @@ namespace Scripts.Services.AssetManagement
 {
     public class AssetProvider : IAssetProvider, IInitializable, IDisposable
     {
-        private readonly Dictionary<string, AsyncOperationHandle> _cache = new Dictionary<string, AsyncOperationHandle>();
-        private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new Dictionary<string, List<AsyncOperationHandle>>();
+        private readonly Dictionary<string, AsyncOperationHandle> _cache = new();
+        private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
         public void Initialize() => 
             Addressables.InitializeAsync();

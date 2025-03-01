@@ -20,9 +20,6 @@ namespace _Project.Scripts.Core.Logic
         public void Initialize() =>
             InitView();
 
-        public void OnMaxPlayersValueChanged(string input) =>
-            _view.SwitchMaxPlayersPlaceholderRender(string.IsNullOrEmpty(input));
-
         public void OnMaxPlayersEndEdit(string input)
         {
             if (string.IsNullOrEmpty(input))

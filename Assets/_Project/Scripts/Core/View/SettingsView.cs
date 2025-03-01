@@ -9,7 +9,6 @@ namespace _Project.Scripts.Core.View
     public class SettingsView: MonoBehaviour
     {
         [SerializeField] private TMP_InputField _maxPlayers;
-        [SerializeField] private TextMeshProUGUI _maxPlayersPlaceholder;
         [SerializeField] private Slider _soundsSlider;
         [SerializeField] private Slider _musicSlider;
         
@@ -23,7 +22,6 @@ namespace _Project.Scripts.Core.View
         {
             _maxPlayers.contentType = TMP_InputField.ContentType.IntegerNumber;
             _maxPlayers.characterValidation = TMP_InputField.CharacterValidation.Integer;
-           _maxPlayers.onValueChanged.AddListener(_presenter.OnMaxPlayersValueChanged);
            _maxPlayers.onEndEdit.AddListener(_presenter.OnMaxPlayersEndEdit);
            _soundsSlider.onValueChanged.AddListener(_presenter.OnSoundsSliderValueChanged);
            _musicSlider.onValueChanged.AddListener(_presenter.OnMusicSliderValueChanged);
@@ -39,9 +37,6 @@ namespace _Project.Scripts.Core.View
 
         public void DrawMaxPlayers(int maxPlayers) =>
             _maxPlayers.text = maxPlayers.ToString();
-        
-        public void SwitchMaxPlayersPlaceholderRender(bool predicate) =>
-            _maxPlayersPlaceholder.gameObject.SetActive(predicate);
 
         public void DrawSliders(float sounds, float music)
         {
