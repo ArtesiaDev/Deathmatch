@@ -29,7 +29,12 @@ namespace _Project.Scripts.Core.Logic
             _view.SwitchSettingsPanelRender(true);
         }
 
-        private void InitView() =>
+        private void InitView()
+        {
             _view.DrawVersion(Application.version);
+            _view.SwitchMainWindowRender(false);
+            _view.SwitchGamePanelRender(false);
+            _view.SwitchSettingsPanelRender(false);
+        }
     }
 }
