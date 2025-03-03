@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Core.View
+namespace _Project.Scripts.Core.View.Game
 {
     public class TestView : MonoBehaviour
     {

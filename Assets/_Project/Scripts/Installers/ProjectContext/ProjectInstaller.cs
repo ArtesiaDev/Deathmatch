@@ -1,3 +1,4 @@
+using _Project.Scripts.EventSignals;
 using Scripts.Services.AssetManagement;
 using Scripts.Services.Pause;
 using Scripts.Services.SceneLoader;
@@ -14,6 +15,7 @@ namespace _Project.Scripts.Installers.ProjectContext
            Container.BindInterfacesTo<AsyncSceneProvider>().AsSingle();
            Container.BindInterfacesTo<PauseManager>().AsSingle();
            Container.BindInterfacesTo<TimerManager>().AsSingle();
+           Container.Bind<ProjectSignals>().AsSingle();
         }
     }
 }

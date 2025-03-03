@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 164474153}
   - component: {fileID: 164474152}
   - component: {fileID: 164474154}
+  - component: {fileID: 164474155}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -199,6 +200,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d69788ab7e49d3b5cd24e4835beabf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameSceneLoader: {fileID: 164474155}
+--- !u!114 &164474155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164474151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868c9d20583e4917abc39e5af1a1cf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 2110222176}
+  _mainCamera: {fileID: 519420028}
 --- !u!1 &331187520
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -755,7 +771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2110222177
 MonoBehaviour:
   m_ObjectHideFlags: 0

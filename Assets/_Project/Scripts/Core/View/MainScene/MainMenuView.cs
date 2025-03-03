@@ -1,10 +1,10 @@
-using _Project.Scripts.Core.Logic;
+using _Project.Scripts.Core.Logic.MainScene;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace _Project.Scripts.Core.View
+namespace _Project.Scripts.Core.View.MainScene
 {
     public class MainMenuView : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-using _Project.Scripts.Core.View;
+using _Project.Scripts.Core.View.MainScene;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Core.Logic
+namespace _Project.Scripts.Core.Logic.MainScene
 {
     public class MainMenuPresenter: IInitializable
     {

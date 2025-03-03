@@ -1,6 +1,6 @@
-using _Project.Scripts.Core.Logic;
+using _Project.Scripts.Core.Logic.MainScene;
 using _Project.Scripts.Core.Models;
-using _Project.Scripts.Core.View;
+using _Project.Scripts.Core.View.MainScene;
 using UnityEngine;
 using Zenject;
 
@@ -26,6 +26,8 @@ namespace _Project.Scripts.Installers.SceneContext
             Container.Bind<GamePanelView>().FromInstance(_gamePanelView).AsSingle();
             
             Container.Bind<GamePanelModel>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<BackendLoader>().AsSingle();
         }
     }
 }

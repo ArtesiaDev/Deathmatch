@@ -77,12 +77,15 @@ namespace Scripts.Services.SceneLoader
                 onActivated?.Invoke();
             }
             else if (_startScene.name == name.ToString())
+            {
                 SceneManager.SetActiveScene(_startScene);
+                onActivated?.Invoke();
+            }
 
             else Debug.LogError($"Scene {name} is not loaded");
         }
 
-        public async Task UnloadScene(Scene name, bool releaseHandle = false)
+        public async Task UnloadScene(Scene name, bool releaseHandle = false, Action onUnloaded = null)
         {
             if (_cancellationToken.Token.IsCancellationRequested)
                 return;
@@ -91,9 +94,13 @@ namespace Scripts.Services.SceneLoader
             {
                 await Addressables.UnloadSceneAsync(scene, releaseHandle);
                 _loadedScenes.Remove(name);
+                onUnloaded?.Invoke();
             }
             else if (_startScene.name == name.ToString() && _startScene.isLoaded)
+            {
                 await SceneManager.UnloadSceneAsync(_startScene);
+                onUnloaded?.Invoke();
+            }
             
             else Debug.LogError($"Scene {name} is not loaded");
         }

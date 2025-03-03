@@ -9,6 +9,6 @@ namespace Scripts.Services.SceneLoader
         Task LoadSceneAdditive(Scene name, bool runSceneImmediately = false, bool activateSceneImmediately = false, Action onLoaded = null);
         Task RunLoadingScene(Scene name);
         Task ActivateScene(Scene name, Action onActivated = null);
-        Task UnloadScene(Scene name, bool releaseHandle);
+        Task UnloadScene(Scene name, bool releaseHandle = false, Action onUnloaded = null);
     }
 }
