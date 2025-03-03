@@ -2776,7 +2776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
+  m_sendNavigationEvents: 0
   m_DragThreshold: 10
 --- !u!4 &1346248665
 Transform:
@@ -3625,6 +3625,8 @@ MonoBehaviour:
   _mainMenuView: {fileID: 1148402761}
   _settingsView: {fileID: 1148402762}
   _gamePanelView: {fileID: 1148402763}
+  _audioSystem: {fileID: 0}
+  _audioConfig: {fileID: 11400000, guid: d920ba1aa285843c483a2ec49e1c01b6, type: 2}
 --- !u!1 &1681239662
 GameObject:
   m_ObjectHideFlags: 0

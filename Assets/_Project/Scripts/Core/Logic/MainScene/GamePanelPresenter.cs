@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using _Project.Scripts.Core.Models;
 using _Project.Scripts.Core.View.MainScene;
 using _Project.Scripts.EventSignals;
+using _Project.Scripts.Services.AudioManagement;
 using DG.Tweening;
+using Scripts.Core.GameEntity;
 using Scripts.Services.SceneLoader;
 using UnityEngine;
 using WebSocketSharp;
@@ -21,19 +23,21 @@ namespace _Project.Scripts.Core.Logic.MainScene
         private ISceneProvider _sceneProvider;
         private ProjectSignals _signals;
         private BackendLoader _backendLoader;
+        private AudioSystem _audioSystem;
 
         private GameObject _loadingIcon;
         private Tweener _loadingTween;
 
         [Inject]
         private void Construct(GamePanelView view, GamePanelModel model, ISceneProvider sceneProvider,
-            ProjectSignals signals, BackendLoader loader)
+            ProjectSignals signals, BackendLoader loader, AudioSystem audioSystem)
         {
             _view = view;
             _model = model;
             _sceneProvider = sceneProvider;
             _signals = signals;
             _backendLoader = loader;
+            _audioSystem = audioSystem;
         }
 
         public void Initialize()
@@ -45,49 +49,55 @@ namespace _Project.Scripts.Core.Logic.MainScene
         public void Dispose() =>
             _loadingTween?.Kill();
 
-        public async void CreateNewGame() =>
-            await TransitionToGameScene(async () =>
-            {
-                await _backendLoader.SettingUpNewGame();
-            });
+        public async void CreateNewGame()
+        {
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickWhoosh);
+            await TransitionToGameScene(async () => { await _backendLoader.SettingUpNewGame(); });
+        }
 
         public async void JoinExistingGame()
         {
             if (_model.CurrentSessionCode.IsNullOrEmpty())
                 return;
 
-            if (_backendLoader.SessionCodeIsValid(_model.CurrentSessionCode))
-                await TransitionToGameScene(async () =>
-                {
-                    await _backendLoader.ConnectJoinGame();
-                });
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickWhoosh);
             
+            if (_backendLoader.SessionCodeIsValid(_model.CurrentSessionCode))
+                await TransitionToGameScene(async () => { await _backendLoader.ConnectJoinGame(); });
+
             else _view.SwitchInvalidPanelRender(true, _model.CurrentSessionCode);
         }
 
-        public void OnSessionCodeEndEdit(string code) =>
+        public void OnSessionCodeEndEdit(string code)
+        {
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
             _model.SetCurrentSessionCode(code);
+        }
 
         public void OnSessionCodeValidate(string code)
         {
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical, 0.5f, 0.7f);
             if (code.Length > 8)
                 _view.DrawSessionCode(code[..8]);
         }
 
-        public void DisconnectGame()
+        public async void DisconnectGame()
         {
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickPunch, 0.25f);
             _model.CancellationToken.Cancel();
-            _sceneProvider.UnloadScene(Scene.Game, false,
-                () =>
-                {
-                    _view.SwitchLoadingPanelRender(false);
-                    _loadingTween?.Kill();
-                    _loadingIcon.transform.rotation = Quaternion.identity;
-                });
+            await _sceneProvider.UnloadScene(Scene.Game, false, () =>
+            {
+                _loadingTween?.Kill();
+                _loadingIcon.transform.rotation = Quaternion.identity;
+                _view.SwitchLoadingPanelRender(false);
+            });
         }
 
-        public void CloseInvalidPanel() =>
+        public void CloseInvalidPanel()
+        {
+            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
             _view.SwitchInvalidPanelRender(false);
+        }
 
         private async Task TransitionToGameScene(Func<Task> onBackendComplete = null)
         {
@@ -102,13 +112,14 @@ namespace _Project.Scripts.Core.Logic.MainScene
             if (onBackendComplete != null)
                 await onBackendComplete.Invoke();
 
-            if(_model.FinishTransitionPredicate == false)
+            if (_model.FinishTransitionPredicate == false)
                 return;
 
             await _sceneProvider.ActivateScene(Scene.Game);
             await _sceneProvider.UnloadScene(Scene.MainMenu, false,
                 () =>
                 {
+                    _audioSystem.StopBackgroundMusic(2.5f);
                     MainMenuSceneUnloaded?.Invoke();
                     MainMenuSceneUnloaded -= _signals.OnMainMenuSceneUnloaded;
                 });

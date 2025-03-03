@@ -49,7 +49,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: -8965370018022769417}
   _installerPrefabs: []
-  _parentNewObjectsUnderContext: 1
+  _parentNewObjectsUnderContext: 0
   _editorReflectionBakingCoverageMode: 0
   _buildsReflectionBakingCoverageMode: 0
   _settings:
@@ -74,3 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51e2cad0d4d4ea0912476b704cd4c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSystem: {fileID: 4110072100921672575, guid: cc34c0269a0324c2ca5a2c7e4fd336f0, type: 3}
+  _audioConfig: {fileID: 11400000, guid: d920ba1aa285843c483a2ec49e1c01b6, type: 2}

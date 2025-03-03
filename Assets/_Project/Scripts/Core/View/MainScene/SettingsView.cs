@@ -23,6 +23,7 @@ namespace _Project.Scripts.Core.View.MainScene
             _maxPlayers.contentType = TMP_InputField.ContentType.IntegerNumber;
             _maxPlayers.characterValidation = TMP_InputField.CharacterValidation.Integer;
            _maxPlayers.onEndEdit.AddListener(_presenter.OnMaxPlayersEndEdit);
+           _maxPlayers.onValueChanged.AddListener(_presenter.OnMaxPlayersValueChanged);
            _soundsSlider.onValueChanged.AddListener(_presenter.OnSoundsSliderValueChanged);
            _musicSlider.onValueChanged.AddListener(_presenter.OnMusicSliderValueChanged);
         }
@@ -37,6 +38,9 @@ namespace _Project.Scripts.Core.View.MainScene
 
         public void DrawMaxPlayers(int maxPlayers) =>
             _maxPlayers.text = maxPlayers.ToString();
+
+        public bool MaxPlayerIsFocused() =>
+            _maxPlayers.isFocused;
 
         public void DrawSliders(float sounds, float music)
         {

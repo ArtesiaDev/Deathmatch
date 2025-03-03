@@ -6,7 +6,7 @@ using Zenject;
 
 namespace _Project.Scripts.Installers.SceneContext
 {
-    public class MainMenuInstaller: MonoInstaller
+    public class MainMenuInstaller : MonoInstaller
     {
         [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private SettingsView _settingsView;
@@ -14,20 +14,30 @@ namespace _Project.Scripts.Installers.SceneContext
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<MainMenuPresenter>().AsSingle();
+            BindViews();
+            BindLogic();
+            BindModels();
+        }
+
+        private void BindViews()
+        {
             Container.Bind<MainMenuView>().FromInstance(_mainMenuView).AsSingle();
-            
-            Container.BindInterfacesAndSelfTo<SettingsPresenter>().AsSingle();
             Container.Bind<SettingsView>().FromInstance(_settingsView).AsSingle();
-            
-            Container.Bind<SettingsModel>().AsSingle();
-            
-            Container.BindInterfacesAndSelfTo<GamePanelPresenter>().AsSingle();
             Container.Bind<GamePanelView>().FromInstance(_gamePanelView).AsSingle();
-            
-            Container.Bind<GamePanelModel>().AsSingle();
-            
+        }
+
+        private void BindLogic()
+        {
+            Container.BindInterfacesAndSelfTo<MainMenuPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SettingsPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GamePanelPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BackendLoader>().AsSingle();
+        }
+
+        private void BindModels()
+        {
+            Container.Bind<SettingsModel>().AsSingle();
+            Container.Bind<GamePanelModel>().AsSingle();
         }
     }
 }

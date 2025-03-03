@@ -23,7 +23,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(3), _model.CancellationToken.Token);
+                await Task.Delay(TimeSpan.FromSeconds(10), _model.CancellationToken.Token);
             }
             catch (TaskCanceledException)
             {
