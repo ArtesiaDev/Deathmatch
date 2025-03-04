@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using _Project.Scripts.Configs;
-using Scripts.Core.GameEntity;
-using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
+using AudioClip = _Project.Scripts.Services.AudioManagement.AudioClip;
 
 namespace _Project.Scripts.Core.Models
 {
@@ -14,13 +13,11 @@ namespace _Project.Scripts.Core.Models
         {
             foreach (var audioEntity in config.AudioClips)
                 AudioClips.TryAdd(audioEntity.Name, audioEntity.Clip);
-            
-            SoundsGroup = config.SoundsGroup;
-            MusicGroup = config.MusicGroup;
+
+            AudioMixer = config.AudioMixer;
         }
 
-        public Dictionary<AudioClipName, AudioClip> AudioClips { get; private set; } = new();
-        public AudioMixerGroup SoundsGroup { get; private set; }
-        public AudioMixerGroup MusicGroup { get; private set; }
+        public Dictionary<AudioClip, UnityEngine.AudioClip> AudioClips { get; private set; } = new();
+        public AudioMixer AudioMixer { get; private set; }
     }
 }

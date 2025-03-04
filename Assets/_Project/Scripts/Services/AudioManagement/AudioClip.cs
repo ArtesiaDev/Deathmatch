@@ -1,6 +1,6 @@
-namespace Scripts.Core.GameEntity
+namespace _Project.Scripts.Services.AudioManagement
 {
-    public enum AudioClipName
+    public enum AudioClip
     {
         ClickMechanical = 1,
         ClickPunch = 2,

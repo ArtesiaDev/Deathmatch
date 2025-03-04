@@ -10,6 +10,7 @@ using Scripts.Services.SceneLoader;
 using UnityEngine;
 using WebSocketSharp;
 using Zenject;
+using AudioClip = _Project.Scripts.Services.AudioManagement.AudioClip;
 using Scene = Scripts.Services.SceneLoader.Scene;
 
 namespace _Project.Scripts.Core.Logic.MainScene
@@ -51,7 +52,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         public async void CreateNewGame()
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickWhoosh);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickWhoosh);
             await TransitionToGameScene(async () => { await _backendLoader.SettingUpNewGame(); });
         }
 
@@ -60,7 +61,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
             if (_model.CurrentSessionCode.IsNullOrEmpty())
                 return;
 
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickWhoosh);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickWhoosh);
             
             if (_backendLoader.SessionCodeIsValid(_model.CurrentSessionCode))
                 await TransitionToGameScene(async () => { await _backendLoader.ConnectJoinGame(); });
@@ -70,20 +71,20 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         public void OnSessionCodeEndEdit(string code)
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickMechanical);
             _model.SetCurrentSessionCode(code);
         }
 
         public void OnSessionCodeValidate(string code)
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical, 0.5f, 0.7f);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickMechanical, 0.5f, 0.7f);
             if (code.Length > 8)
                 _view.DrawSessionCode(code[..8]);
         }
 
         public async void DisconnectGame()
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickPunch, 0.25f);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickPunch, 0.25f);
             _model.CancellationToken.Cancel();
             await _sceneProvider.UnloadScene(Scene.Game, false, () =>
             {
@@ -95,7 +96,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         public void CloseInvalidPanel()
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickMechanical);
             _view.SwitchInvalidPanelRender(false);
         }
 

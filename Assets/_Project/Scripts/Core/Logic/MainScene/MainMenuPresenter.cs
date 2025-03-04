@@ -3,6 +3,7 @@ using _Project.Scripts.Services.AudioManagement;
 using Scripts.Core.GameEntity;
 using UnityEngine;
 using Zenject;
+using AudioClip = _Project.Scripts.Services.AudioManagement.AudioClip;
 
 namespace _Project.Scripts.Core.Logic.MainScene
 {
@@ -23,7 +24,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         public void OpenGamePanel()
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickMechanical);
             _view.SwitchMainWindowRender(true);
             _view.SwitchGamePanelRender(true);
             _view.SwitchSettingsPanelRender(false);
@@ -31,7 +32,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         public void OpenSettingsPanel()
         {
-            _audioSystem.PlayOneShotSound(AudioClipName.ClickMechanical);
+            _audioSystem.PlayOneShotSound(AudioClip.ClickMechanical);
             _view.SwitchMainWindowRender(true);
             _view.SwitchGamePanelRender(false);
             _view.SwitchSettingsPanelRender(true);
@@ -39,7 +40,7 @@ namespace _Project.Scripts.Core.Logic.MainScene
 
         private void InitView()
         {
-           _audioSystem.PlayBackgroundMusic(AudioClipName.Music1, 0.5f);
+           _audioSystem.PlayBackgroundMusic(AudioClip.Music1, 0.5f);
             _view.DrawVersion(Application.version);
             _view.SwitchMainWindowRender(false);
             _view.SwitchGamePanelRender(false);

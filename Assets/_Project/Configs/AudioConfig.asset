@@ -21,3 +21,4 @@ MonoBehaviour:
     <Name>k__BackingField: 3
   - <Clip>k__BackingField: {fileID: 8300000, guid: 5ae5b4f05aaedda4bb073e24ee777fb3, type: 3}
     <Name>k__BackingField: 4
+  <AudioMixer>k__BackingField: {fileID: 24100000, guid: b070ae057199e4404a99efce66e0d948, type: 2}

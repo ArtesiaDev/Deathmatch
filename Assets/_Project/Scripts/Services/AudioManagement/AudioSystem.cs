@@ -1,6 +1,5 @@
 using _Project.Scripts.Core.Models;
 using DG.Tweening;
-using Scripts.Core.GameEntity;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +19,23 @@ namespace _Project.Scripts.Services.AudioManagement
         private void Awake() =>
             DontDestroyOnLoad(this);
 
-        public void PlayOneShotSound(AudioClipName clipName, float volume = 1f, float pitch = 1f)
+        public void SetSoundsVolume(float percentage)
+        {
+            var volume = Mathf.Lerp(-20f, 20f, percentage);
+            if (percentage == 0)
+                volume = -80;
+            _audioModel.AudioMixer.SetFloat(MixerParameters.SoundsVolume.ToString(), volume);
+        }
+
+        public void SetMusicVolume(float percentage)
+        {
+            var volume = Mathf.Lerp(-20f, 20f, percentage);
+            if (percentage == 0)
+                volume = -80;
+            _audioModel.AudioMixer.SetFloat(MixerParameters.MusicVolume.ToString(), volume);
+        }
+
+        public void PlayOneShotSound(AudioClip clipName, float volume = 1f, float pitch = 1f)
         {
             var clip = _audioModel.AudioClips[clipName];
             _soundSource.pitch = pitch;
@@ -28,7 +43,7 @@ namespace _Project.Scripts.Services.AudioManagement
             _soundSource.PlayOneShot(clip, volume);
         }
 
-        public void PlayBackgroundMusic(AudioClipName clipName, float volume = 1f, float pitch = 1f)
+        public void PlayBackgroundMusic(AudioClip clipName, float volume = 1f, float pitch = 1f)
         {
             var clip = _audioModel.AudioClips[clipName];
             _musicSource.volume = volume;
@@ -45,7 +60,7 @@ namespace _Project.Scripts.Services.AudioManagement
                 _musicSource.clip = null;
             });
 
-        public void PlayClipAtPoint(AudioClipName clipName, Vector3 position, float volume = 1f)
+        public void PlayClipAtPoint(AudioClip clipName, Vector3 position, float volume = 1f)
         {
             var clip = _audioModel.AudioClips[clipName];
             AudioSource.PlayClipAtPoint(clip, position, volume);
